@@ -39,3 +39,16 @@ def test_location_survives_redaction_for_retrieval_context():
     text = "The Bangalore office reported the issue."
     redacted, _ = redact_document(text)
     assert "Bangalore" in redacted
+
+
+def test_audit_log_path_persists_records_for_this_document(tmp_path):
+    from pii_redaction.audit_log import read_audit_log
+
+    path = tmp_path / "audit.jsonl"
+    text = "Contact rahul@company.co.in for details."
+    _, records = redact_document(text, audit_log_path=path, document_id="doc-1")
+
+    entries = read_audit_log(path)
+    assert len(entries) == len(records) == 1
+    assert entries[0]["entity_type"] == "EMAIL"
+    assert entries[0]["document_id"] == "doc-1"

@@ -10,15 +10,56 @@ remove PII while preserving enough structure for retrieval to still work.
 This is a work in progress, built session by session. This document is
 updated as each stage lands.
 
-## Status: Session 4 — measured evaluation
+## What this project actually adds beyond calling Presidio
+
+Presidio already detects PII. Calling `AnalyzerEngine().analyze()` is not
+this project. What's actually built here, concretely:
+
+1. **Indian-format structured detection Presidio doesn't ship.** PAN and
+   Aadhaar-format numbers aren't in Presidio's default recognizer set at
+   all. Aadhaar detection includes a real Verhoeff checksum implementation
+   (see [`verhoeff.py`](src/pii_redaction/detectors/verhoeff.py)), not just
+   a 12-digit regex — see "Evaluation results" for the measured precision
+   difference that makes.
+2. **The retrieval-preservation framing and the strategy table that
+   implements it.** Presidio redacts or anonymizes; it doesn't decide that
+   person names should get *consistent* pseudonyms so a RAG system can
+   still tell two people apart, or that a bare city name should be
+   retained rather than blanked because it's already at the coarse end of
+   a street→city hierarchy. That table, and the reasoning behind each row,
+   is in "Stage 4" below.
+3. **Explicit overlap resolution between detector layers**, with a
+   documented precedence rule — see "Stage 3" below. Presidio has its own
+   internal conflict resolution for recognizers it manages; this project's
+   resolution logic sits a layer above that, arbitrating between Presidio's
+   NER output and independently-built regex/checksum detectors.
+4. **A measured evaluation on an India-specific labeled test set**, not
+   Presidio's own test suite. See "Evaluation results" below.
+5. **An audit trail designed for compliance evidence** — offsets, entity
+   type, strategy, confidence, persisted as append-only JSONL — that
+   deliberately never stores the PII it's logging the redaction of. See
+   "Stage 4" and [`audit_log.py`](src/pii_redaction/audit_log.py).
+
+**Why Presidio/spaCy at all, rather than building NER from scratch:**
+because reimplementing a named-entity recognizer is a multi-month research
+problem with worse baseline accuracy than a maintained, widely-used library
+gets out of the box. The judgment call that *is* this project's own is
+knowing where Presidio's defaults are wrong for this use case (its
+Indian-format coverage, its blanket redaction strategy) and building
+exactly those pieces — not the parts a library already does well.
+
+## Status: Session 5 — persisted audit logging, polish, published
 
 Session 1 built **Stage 2's regex layer** (structured Indian PII). Session 2
 added the other half of Stage 2: **unstructured detection** via Presidio for
 person names and locations. Session 3 added **Stage 3 (resolution)**,
 **Stage 4 (transformation)**, and a 134-case labeled test set. Session 4
-runs the pipeline against that test set and reports real, measured
+ran the pipeline against that test set and reported real, measured
 precision/recall/F1 — see [Evaluation results](#evaluation-results-session-4)
-below and the full [`EVAL_RESULTS.md`](EVAL_RESULTS.md).
+below and the full [`EVAL_RESULTS.md`](EVAL_RESULTS.md). Session 5 adds
+**Stage 5's persisted audit trail** (append-only JSONL, never the original
+PII text), consolidates the "what did you actually build" defense into one
+place (immediately below), and publishes the repo.
 
 - Email
 - Phone (Indian mobile formats)
@@ -135,8 +176,21 @@ that keeps a plaintext copy of the exact thing it just redacted defeats the
 point of redacting it. Offsets are enough for an auditor to correlate
 against the source document under proper access control.
 
-Run `python scripts/demo.py` to see the full pipeline (`pipeline.redact_document()`)
-on a sample document, including the audit log and a concrete instance of
+### Stage 5 — persisting the audit trail
+
+`redact_document(text, audit_log_path=...)` optionally appends every
+`RedactionRecord` from that call to a JSONL file — see
+[`audit_log.py`](src/pii_redaction/audit_log.py). "Appends" is deliberate:
+`write_audit_log()` opens in append mode by default, because a log an
+application can silently overwrite isn't evidence of anything. An optional
+`document_id` tags every line so records from different documents
+processed into the same log file stay attributable — metadata about the
+pipeline run, not PII, so it doesn't reintroduce the thing Stage 4 was
+careful to keep out.
+
+Run `python scripts/demo.py` to see the full pipeline
+(`pipeline.redact_document()`) on a sample document, including a persisted
+audit log written to `demo_audit_log.jsonl` and a concrete instance of
 consistent pseudonymisation: "Priya Sharma" appears twice in the sample
 text and both mentions resolve to the same `PERSON_A` token, while "Rahul
 Verma" — a different person — gets the distinct `PERSON_B`.
@@ -296,7 +350,7 @@ raise:**
   retrieval quality.** No embedding-based retrieval comparison has been
   run — see Known Limitations.
 
-### Known limitations (Session 1-4 scope)
+### Known limitations (Session 1-5 scope)
 
 - **Phone**: mobile numbers only (first digit 6-9, 10 digits, optional
   `+91`/`0` prefix). Landline numbers (STD code + local number) are not
@@ -325,9 +379,12 @@ raise:**
 - **No street-level address detection or coarsening.** `LOCATION` is
   whatever spaCy's `GPE`/`LOC` labels catch, not full postal addresses — so
   there's nothing finer to coarsen down to.
-- **No persisted/formal audit logging yet.** `RedactionRecord`s are
-  returned in-memory from `redact()`; writing them to a durable audit trail
-  (and the ISO-27001-flavoured framing of that) is Session 5 polish.
+- **Audit log persistence has no rotation, encryption-at-rest, or access
+  control of its own.** `write_audit_log()` appends plain JSONL to a local
+  path — it's a building block for compliance evidence, not a hardened
+  audit system. Those concerns belong to whatever deploys this (a real
+  logging pipeline, a database with its own access controls), not to this
+  function.
 - **No Stage 1 normalisation yet** (Unicode/whitespace cleanup) — the
   pipeline currently assumes reasonably clean input text.
 - **No embedding-based retrieval-quality evaluation.** The whole project is
@@ -354,8 +411,9 @@ src/pii_redaction/
   entity.py               # PIIEntity — the shared span type every detector emits
   resolution.py            # Stage 3 — resolve overlapping spans across detectors
   transform.py              # Stage 4 — per-entity-type redaction + audit records
-  pipeline.py                # glues detectors -> resolution -> transform together
+  pipeline.py                # glues detectors -> resolution -> transform (-> audit_log) together
   evaluation.py               # Session 4 — strict/relaxed matching, precision/recall/F1
+  audit_log.py                # Stage 5 — persisted, append-only JSONL audit trail
   detectors/
     verhoeff.py            # Verhoeff checksum (validate + generate)
     email.py

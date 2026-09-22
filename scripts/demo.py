@@ -1,12 +1,14 @@
-"""Session 1+2 demo: run the structured-PII regex detectors plus the
+"""Sessions 1-5 demo: run the structured-PII regex detectors plus the
 Presidio NER detector on a sample document, including the Aadhaar
-precision comparison."""
+precision comparison and the full detect -> resolve -> redact -> persisted
+audit log pipeline."""
 
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
+from pii_redaction.audit_log import read_audit_log
 from pii_redaction.detectors import (
     AadhaarDetector,
     AadhaarNaiveDetector,
@@ -16,6 +18,8 @@ from pii_redaction.detectors import (
     PresidioNERDetector,
 )
 from pii_redaction.pipeline import redact_document
+
+AUDIT_LOG_PATH = Path(__file__).resolve().parent.parent / "demo_audit_log.jsonl"
 
 SAMPLE_TEXT = """
 Dear Team,
@@ -70,7 +74,9 @@ def main() -> None:
         print(f"  [{s.start}:{s.end}] {s.entity_type.value:12} {s.text!r} (confidence={s.confidence:.2f})")
 
     print("\n=== Full pipeline: detect -> resolve -> redact (Stages 2-4) ===\n")
-    redacted, records = redact_document(SAMPLE_TEXT)
+    if AUDIT_LOG_PATH.exists():
+        AUDIT_LOG_PATH.unlink()  # start clean so this demo run's log isn't mixed with a stale one
+    redacted, records = redact_document(SAMPLE_TEXT, audit_log_path=AUDIT_LOG_PATH, document_id="demo-sample")
     print("--- Redacted text ---")
     print(redacted)
     print("--- Audit log (offsets only, never the original PII text) ---")
@@ -86,6 +92,11 @@ def main() -> None:
         "(the greeting and the follow-up line) and both map to PERSON_A; "
         "Rahul Verma, a different person, maps to the distinct PERSON_B."
     )
+
+    print(f"\n=== Stage 5: persisted audit log ({AUDIT_LOG_PATH.name}) ===\n")
+    persisted = read_audit_log(AUDIT_LOG_PATH)
+    print(f"{len(persisted)} record(s) persisted to disk, e.g.:")
+    print(f"  {persisted[0]}")
 
 
 if __name__ == "__main__":
