@@ -10,15 +10,18 @@ remove PII while preserving enough structure for retrieval to still work.
 This is a work in progress, built session by session. This document is
 updated as each stage lands.
 
-## Status: Session 1 — structured detection
+## Status: Session 2 — unstructured (NER) detection
 
-Implemented so far: **Stage 2's regex layer** — detection of structured,
-format-defined Indian PII, before any NER/unstructured detection is added.
+Session 1 built **Stage 2's regex layer** — structured, format-defined
+Indian PII. Session 2 adds the other half of Stage 2: **unstructured
+detection** via Presidio (spaCy `en_core_web_lg`-backed) for person names
+and locations.
 
 - Email
 - Phone (Indian mobile formats)
 - PAN (with holder-type structural validation)
 - Aadhaar-format numbers (with Verhoeff checksum validation)
+- Person names, locations (Presidio NER, `en_core_web_lg`)
 
 ### Why checksum validation matters for Aadhaar
 
@@ -45,7 +48,39 @@ The 10th character is also a check character, but its generation algorithm
 is not public, so it is not validated here — noted as a limitation, not
 silently ignored.
 
-### Known limitations (Session 1 scope)
+### Unstructured detection (Presidio NER)
+
+`PresidioNERDetector` wraps Presidio's `AnalyzerEngine`, restricted to
+`PERSON` and `LOCATION` — the entity types the regex layer structurally
+cannot cover. `ORGANIZATION` is intentionally excluded (see Known
+Limitations below for why). Structured PII stays on the regex detectors,
+which have Indian-format and checksum precision Presidio's generic
+recognizers don't; this detector is scoped to exactly what's left.
+
+**Anecdotal spot-check, not a measured result:** `scripts/explore_indian_names.py`
+runs the detector against a small hand-written set of sentences spanning
+North Indian, South Indian, Muslim, Christian, and Sikh naming conventions,
+plus names that are also common English words. Sample size is too small (12
+sentences, hand-written) to be a recall claim — but it already surfaced a
+concrete, reproducible failure worth naming here rather than saving for
+Session 4:
+
+- 11/12 matched exactly, including multi-word South Indian, Muslim, and
+  Sikh names (`Venkataraman Subramaniam`, `Mohammed Irfan Khan`,
+  `Gurpreet Singh`).
+- The one miss: **"Hope Fernandez"** was only partially detected as
+  `Fernandez` — the model dropped "Hope" from the span, almost certainly
+  because it's also a common English noun. This is exactly the "names that
+  are common words" failure mode called out as a real risk before any
+  measurement was taken. It's a boundary/span error, not a total miss,
+  which is itself relevant to the strict-vs-relaxed matching-rule decision
+  Session 4 has to make explicit.
+
+The real, measured per-category recall — including whatever gap shows up
+between Indian and Western names at scale — comes from the labeled test set
+in Session 3-4, not from this script.
+
+### Known limitations (Session 1-2 scope)
 
 - **Phone**: mobile numbers only (first digit 6-9, 10 digits, optional
   `+91`/`0` prefix). Landline numbers (STD code + local number) are not
@@ -57,12 +92,23 @@ silently ignored.
   number is a *real, issued* Aadhaar number — only that it is
   checksum-consistent, which is the strongest signal available without a
   UIDAI lookup (which this project does not and should not perform).
-- **No unstructured detection yet** (names, addresses, organisations) —
-  that's Session 2, via Presidio/spaCy NER.
-- **No overlap resolution, transformation strategy, or audit logging yet**
-  — Stages 3-5 of the pipeline land in later sessions.
+- **NER scope**: only `PERSON` and `LOCATION` are extracted. `ORGANIZATION`
+  is deliberately excluded — Presidio's own default config disables it
+  ("Has many false positives" from spaCy's noisy `ORG` label), and the
+  project's own transformation strategy (Stage 4) retains organisations
+  rather than redacting them, so detecting them isn't safety-critical here.
+  Presidio's spaCy recognizer also emits `NORP` (nationality/religious/
+  political groups) and `DATE_TIME`; both are out of scope this session.
+  `LOCATION` is whatever spaCy's `GPE`/`LOC` labels catch (cities,
+  countries, named places) — it is not full postal-address parsing.
+- **No overlap resolution yet between the regex and NER layers** (Stage 3)
+  — if both layers fire on the same span, nothing merges or arbitrates them
+  yet. That's the next piece of work.
+- **No transformation strategy or audit logging yet** — Stages 4-5 land in
+  later sessions.
 - **No real-world evaluation yet** — the labeled test set and
-  precision/recall/F1 numbers are Session 3-4.
+  precision/recall/F1 numbers, including actual (not anecdotal) recall on
+  Indian names, are Session 3-4.
 
 All test data (including every Aadhaar-format number in this repo) is
 synthetic: generated programmatically with a valid Verhoeff checksum but not
@@ -79,11 +125,13 @@ src/pii_redaction/
     phone.py
     pan.py
     aadhaar.py              # AadhaarDetector (checksum-validated) + AadhaarNaiveDetector (comparison only)
+    ner.py                  # PresidioNERDetector — PERSON/LOCATION
 tests/
   fixtures.py               # synthetic Aadhaar-number generator
   test_*.py
 scripts/
   demo.py                   # run all detectors on a sample document
+  explore_indian_names.py    # anecdotal NER spot-check, not a measured eval
 ```
 
 ## Running
@@ -91,9 +139,11 @@ scripts/
 ```bash
 python -m venv .venv
 .venv/Scripts/activate        # or source .venv/bin/activate on Linux/Mac
-pip install -e . pytest
+pip install -e . -r requirements.txt
+python -m spacy download en_core_web_lg
 pytest
 python scripts/demo.py
+python scripts/explore_indian_names.py
 ```
 
 ## Scope disclaimer

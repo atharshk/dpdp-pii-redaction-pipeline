@@ -1,5 +1,6 @@
-"""Session 1 demo: run the structured-PII regex detectors on a sample
-document and print what fires, including the Aadhaar precision comparison."""
+"""Session 1+2 demo: run the structured-PII regex detectors plus the
+Presidio NER detector on a sample document, including the Aadhaar
+precision comparison."""
 
 import sys
 from pathlib import Path
@@ -12,6 +13,7 @@ from pii_redaction.detectors import (
     EmailDetector,
     PANDetector,
     PhoneDetector,
+    PresidioNERDetector,
 )
 
 SAMPLE_TEXT = """
@@ -19,13 +21,14 @@ Dear Team,
 
 Please process the KYC update for Priya Sharma (priya.sharma@examplebank.com,
 +91 98765 43210). Her PAN is ABCPD1234E and her Aadhaar number is 2346 6883 3114.
+She works at Meridian Analytics and is based in the Bangalore office.
 
 Also reference order #487213908475 for the courier pickup, and tracking ID
 998877665544 for the delayed shipment. Contact the ops desk on 08123456789
 if there are issues.
 
 For the corporate account, use company PAN AAACX5678Q and escalate to
-rahul@company.co.in.
+Rahul Verma (rahul@company.co.in) in the Delhi finance team.
 """
 
 
@@ -56,7 +59,12 @@ def main() -> None:
     checked_texts = {h.text for h in checked_hits}
     naive_precision = sum(1 for h in naive_hits if h.text in checked_texts) / len(naive_hits)
     print(f"Naive-detector precision on this sample: {naive_precision:.2f}")
-    print("Checksum-validated precision on this sample: 1.00")
+    print("Checksum-validated precision on this sample: 1.00\n")
+
+    print("=== Unstructured PII detection (Presidio NER) ===\n")
+    ner_spans = PresidioNERDetector().detect(SAMPLE_TEXT)
+    for s in ner_spans:
+        print(f"  [{s.start}:{s.end}] {s.entity_type.value:12} {s.text!r} (confidence={s.confidence:.2f})")
 
 
 if __name__ == "__main__":
