@@ -15,6 +15,7 @@ from pii_redaction.detectors import (
     PhoneDetector,
     PresidioNERDetector,
 )
+from pii_redaction.pipeline import redact_document
 
 SAMPLE_TEXT = """
 Dear Team,
@@ -29,6 +30,8 @@ if there are issues.
 
 For the corporate account, use company PAN AAACX5678Q and escalate to
 Rahul Verma (rahul@company.co.in) in the Delhi finance team.
+
+Follow up with Priya Sharma once the Aadhaar re-verification is complete.
 """
 
 
@@ -65,6 +68,24 @@ def main() -> None:
     ner_spans = PresidioNERDetector().detect(SAMPLE_TEXT)
     for s in ner_spans:
         print(f"  [{s.start}:{s.end}] {s.entity_type.value:12} {s.text!r} (confidence={s.confidence:.2f})")
+
+    print("\n=== Full pipeline: detect -> resolve -> redact (Stages 2-4) ===\n")
+    redacted, records = redact_document(SAMPLE_TEXT)
+    print("--- Redacted text ---")
+    print(redacted)
+    print("--- Audit log (offsets only, never the original PII text) ---")
+    for r in records:
+        print(
+            f"  [{r.start}:{r.end}] {r.entity_type:8} strategy={r.strategy:28} "
+            f"replacement={r.replacement!r} confidence={r.confidence:.2f}"
+        )
+    person_records = [(r.start, r.replacement) for r in records if r.entity_type == "PERSON"]
+    print(
+        f"\nPERSON offsets -> token: {person_records}\n"
+        "Priya Sharma appears at two different offsets in the source text "
+        "(the greeting and the follow-up line) and both map to PERSON_A; "
+        "Rahul Verma, a different person, maps to the distinct PERSON_B."
+    )
 
 
 if __name__ == "__main__":

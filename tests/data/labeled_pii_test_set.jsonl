@@ -1,0 +1,134 @@
+{"id": "0000", "category": "person_north_indian", "text": "Rahul Sharma submitted his KYC documents for verification.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Rahul Sharma"}]}
+{"id": "0001", "category": "person_north_indian", "text": "Priya Gupta requested an update on her loan application status.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Priya Gupta"}]}
+{"id": "0002", "category": "person_north_indian", "text": "Aditya Verma was assigned as the primary contact for the account.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Aditya Verma"}]}
+{"id": "0003", "category": "person_north_indian", "text": "Sneha Mishra flagged a discrepancy in the March invoice.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Sneha Mishra"}]}
+{"id": "0004", "category": "person_north_indian", "text": "Vikram Chauhan approved the vendor onboarding request.", "entities": [{"type": "PERSON", "start": 0, "end": 14, "text": "Vikram Chauhan"}]}
+{"id": "0005", "category": "person_north_indian", "text": "Neha Agarwal escalated the support ticket to level two.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Neha Agarwal"}]}
+{"id": "0006", "category": "person_north_indian", "text": "Rohan Kapoor completed the compliance training module.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Rohan Kapoor"}]}
+{"id": "0007", "category": "person_north_indian", "text": "Anjali Saxena reviewed the quarterly audit findings.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Anjali Saxena"}]}
+{"id": "0008", "category": "person_south_indian", "text": "Venkataraman Subramaniam signed off on the merger documents.", "entities": [{"type": "PERSON", "start": 0, "end": 24, "text": "Venkataraman Subramaniam"}]}
+{"id": "0009", "category": "person_south_indian", "text": "Lakshmi Narayanan is the designated data protection officer for this unit.", "entities": [{"type": "PERSON", "start": 0, "end": 17, "text": "Lakshmi Narayanan"}]}
+{"id": "0010", "category": "person_south_indian", "text": "Karthik Iyer raised a concern about the consent form wording.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Karthik Iyer"}]}
+{"id": "0011", "category": "person_south_indian", "text": "Deepa Krishnamurthy transferred to the risk management team.", "entities": [{"type": "PERSON", "start": 0, "end": 19, "text": "Deepa Krishnamurthy"}]}
+{"id": "0012", "category": "person_south_indian", "text": "Srinivasan Raghavan will present the findings at the review meeting.", "entities": [{"type": "PERSON", "start": 0, "end": 19, "text": "Srinivasan Raghavan"}]}
+{"id": "0013", "category": "person_south_indian", "text": "Meenakshi Sundaram closed the incident ticket yesterday.", "entities": [{"type": "PERSON", "start": 0, "end": 18, "text": "Meenakshi Sundaram"}]}
+{"id": "0014", "category": "person_south_indian", "text": "Arjun Reddy updated the customer's billing preferences.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Arjun Reddy"}]}
+{"id": "0015", "category": "person_south_indian", "text": "Divya Chandrasekaran was interviewed for the analyst position.", "entities": [{"type": "PERSON", "start": 0, "end": 20, "text": "Divya Chandrasekaran"}]}
+{"id": "0016", "category": "person_muslim", "text": "Mohammed Irfan Khan confirmed receipt of the settlement letter.", "entities": [{"type": "PERSON", "start": 0, "end": 19, "text": "Mohammed Irfan Khan"}]}
+{"id": "0017", "category": "person_muslim", "text": "Ayesha Siddiqui filed a grievance regarding delayed reimbursement.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Ayesha Siddiqui"}]}
+{"id": "0018", "category": "person_muslim", "text": "Zainab Rahman is listed as the emergency contact on file.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Zainab Rahman"}]}
+{"id": "0019", "category": "person_muslim", "text": "Imran Qureshi requested access to the shared drive.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Imran Qureshi"}]}
+{"id": "0020", "category": "person_muslim", "text": "Fatima Sheikh completed the exit interview this morning.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Fatima Sheikh"}]}
+{"id": "0021", "category": "person_muslim", "text": "Aamir Hussain was promoted to team lead last quarter.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Aamir Hussain"}]}
+{"id": "0022", "category": "person_christian", "text": "Maria Fernandes coordinated the vendor site visit.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Maria Fernandes"}]}
+{"id": "0023", "category": "person_christian", "text": "Paul D'Souza reported a data access anomaly.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Paul D'Souza"}]}
+{"id": "0024", "category": "person_christian", "text": "Jerry Pinto submitted the reimbursement claim late.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Jerry Pinto"}]}
+{"id": "0025", "category": "person_christian", "text": "Thomas Kurian reviewed the data retention policy draft.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Thomas Kurian"}]}
+{"id": "0026", "category": "person_christian", "text": "Sarah Thomas onboarded three new hires this week.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Sarah Thomas"}]}
+{"id": "0027", "category": "person_sikh", "text": "Gurpreet Singh authorized the wire transfer.", "entities": [{"type": "PERSON", "start": 0, "end": 14, "text": "Gurpreet Singh"}]}
+{"id": "0028", "category": "person_sikh", "text": "Harpreet Kaur was assigned the internal audit for Q3.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Harpreet Kaur"}]}
+{"id": "0029", "category": "person_sikh", "text": "Manjeet Singh flagged the vendor contract for legal review.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Manjeet Singh"}]}
+{"id": "0030", "category": "person_sikh", "text": "Simran Kaur updated her mailing address in the portal.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Simran Kaur"}]}
+{"id": "0031", "category": "person_sikh", "text": "Jaspreet Bhatia handled the customer escalation call.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Jaspreet Bhatia"}]}
+{"id": "0032", "category": "person_common_word_name", "text": "Akash Mehta booked the conference room for Friday.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Akash Mehta"}]}
+{"id": "0033", "category": "person_common_word_name", "text": "Hope Fernandez called about the delayed shipment.", "entities": [{"type": "PERSON", "start": 0, "end": 14, "text": "Hope Fernandez"}]}
+{"id": "0034", "category": "person_common_word_name", "text": "Joy Mathew submitted his resignation letter.", "entities": [{"type": "PERSON", "start": 0, "end": 10, "text": "Joy Mathew"}]}
+{"id": "0035", "category": "person_common_word_name", "text": "Rose D'Cruz processed the refund request.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Rose D'Cruz"}]}
+{"id": "0036", "category": "person_common_word_name", "text": "Sunny Malhotra confirmed the meeting for Tuesday.", "entities": [{"type": "PERSON", "start": 0, "end": 14, "text": "Sunny Malhotra"}]}
+{"id": "0037", "category": "person_common_word_name", "text": "Happy Singh renewed the annual maintenance contract.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Happy Singh"}]}
+{"id": "0038", "category": "person_common_word_name", "text": "Raj Kumar Yadav verified the shipment manifest.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Raj Kumar Yadav"}]}
+{"id": "0039", "category": "person_common_word_name", "text": "Precious Lobo scheduled the onboarding session.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Precious Lobo"}]}
+{"id": "0040", "category": "email", "text": "Please send the report to priya.sharma@examplecorp.com by Friday.", "entities": [{"type": "EMAIL", "start": 26, "end": 54, "text": "priya.sharma@examplecorp.com"}]}
+{"id": "0041", "category": "email", "text": "The support ticket was raised from ops+urgent@vendorhub.in.", "entities": [{"type": "EMAIL", "start": 35, "end": 58, "text": "ops+urgent@vendorhub.in"}]}
+{"id": "0042", "category": "email", "text": "Reset password instructions were sent to r.verma@company.co.in.", "entities": [{"type": "EMAIL", "start": 41, "end": 62, "text": "r.verma@company.co.in"}]}
+{"id": "0043", "category": "email", "text": "cc: legal.team@corporate-group.org on all future correspondence.", "entities": [{"type": "EMAIL", "start": 4, "end": 34, "text": "legal.team@corporate-group.org"}]}
+{"id": "0044", "category": "email", "text": "Escalations should go to helpdesk@support.examplebank.com.", "entities": [{"type": "EMAIL", "start": 25, "end": 57, "text": "helpdesk@support.examplebank.com"}]}
+{"id": "0045", "category": "email", "text": "Her personal email k.iyer1990@gmail.com was used for the registration.", "entities": [{"type": "EMAIL", "start": 19, "end": 39, "text": "k.iyer1990@gmail.com"}]}
+{"id": "0046", "category": "email", "text": "Invoices are auto-forwarded to billing@finance.acmeindia.net.", "entities": [{"type": "EMAIL", "start": 31, "end": 60, "text": "billing@finance.acmeindia.net"}]}
+{"id": "0047", "category": "email", "text": "The whistleblower report came in through anon.tip@ethicsline.co.", "entities": [{"type": "EMAIL", "start": 41, "end": 63, "text": "anon.tip@ethicsline.co"}]}
+{"id": "0048", "category": "phone", "text": "Call the customer at 9876543210 to confirm delivery.", "entities": [{"type": "PHONE", "start": 21, "end": 31, "text": "9876543210"}]}
+{"id": "0049", "category": "phone", "text": "Her registered mobile number is +91 98765 43210.", "entities": [{"type": "PHONE", "start": 32, "end": 47, "text": "+91 98765 43210"}]}
+{"id": "0050", "category": "phone", "text": "Reach the vendor on +91-8123456789 for urgent issues.", "entities": [{"type": "PHONE", "start": 20, "end": 34, "text": "+91-8123456789"}]}
+{"id": "0051", "category": "phone", "text": "The alternate contact number is 07012345678.", "entities": [{"type": "PHONE", "start": 32, "end": 43, "text": "07012345678"}]}
+{"id": "0052", "category": "phone", "text": "SMS the OTP to 99887 76655 once verified.", "entities": [{"type": "PHONE", "start": 15, "end": 26, "text": "99887 76655"}]}
+{"id": "0053", "category": "phone", "text": "His work line is +91 7000012345 during business hours.", "entities": [{"type": "PHONE", "start": 17, "end": 31, "text": "+91 7000012345"}]}
+{"id": "0054", "category": "phone", "text": "The courier confirmed delivery to 6123456780.", "entities": [{"type": "PHONE", "start": 34, "end": 44, "text": "6123456780"}]}
+{"id": "0055", "category": "phone", "text": "Please update the number on file to +91-9988776655.", "entities": [{"type": "PHONE", "start": 36, "end": 50, "text": "+91-9988776655"}]}
+{"id": "0056", "category": "phone", "text": "Landline extension aside, her cell is 08234567891.", "entities": [{"type": "PHONE", "start": 38, "end": 49, "text": "08234567891"}]}
+{"id": "0057", "category": "phone", "text": "The registered number 9345678123 bounced back twice.", "entities": [{"type": "PHONE", "start": 22, "end": 32, "text": "9345678123"}]}
+{"id": "0058", "category": "pan", "text": "His individual PAN AXZPK4521F is on file for tax purposes.", "entities": [{"type": "PAN", "start": 19, "end": 29, "text": "AXZPK4521F"}]}
+{"id": "0059", "category": "pan", "text": "The corporate PAN BNTCX7788Q was used for the invoice.", "entities": [{"type": "PAN", "start": 18, "end": 28, "text": "BNTCX7788Q"}]}
+{"id": "0060", "category": "pan", "text": "HUF account PAN PLMHZ3456K needs to be re-verified.", "entities": [{"type": "PAN", "start": 16, "end": 26, "text": "PLMHZ3456K"}]}
+{"id": "0061", "category": "pan", "text": "The partnership firm's PAN QWEFR9012L was rejected by the bank.", "entities": [{"type": "PAN", "start": 27, "end": 37, "text": "QWEFR9012L"}]}
+{"id": "0062", "category": "pan", "text": "Trust PAN MZXTB6789N is linked to the donation account.", "entities": [{"type": "PAN", "start": 10, "end": 20, "text": "MZXTB6789N"}]}
+{"id": "0063", "category": "pan", "text": "The AOP's PAN RTYAL2345P was flagged for review.", "entities": [{"type": "PAN", "start": 14, "end": 24, "text": "RTYAL2345P"}]}
+{"id": "0064", "category": "pan", "text": "Body of Individuals PAN UIOBK5678R is pending activation.", "entities": [{"type": "PAN", "start": 24, "end": 34, "text": "UIOBK5678R"}]}
+{"id": "0065", "category": "pan", "text": "Government entity PAN ASDGM1234T was updated in the system.", "entities": [{"type": "PAN", "start": 22, "end": 32, "text": "ASDGM1234T"}]}
+{"id": "0066", "category": "pan", "text": "Local authority PAN FGHLJ7890V requires re-submission.", "entities": [{"type": "PAN", "start": 20, "end": 30, "text": "FGHLJ7890V"}]}
+{"id": "0067", "category": "pan", "text": "The juridical person's PAN NBVJH4321S was cross-checked.", "entities": [{"type": "PAN", "start": 27, "end": 37, "text": "NBVJH4321S"}]}
+{"id": "0068", "category": "aadhaar", "text": "Her Aadhaar number 8901 2345 6784 was linked to the mobile wallet.", "entities": [{"type": "AADHAAR", "start": 19, "end": 33, "text": "8901 2345 6784"}]}
+{"id": "0069", "category": "aadhaar", "text": "Aadhaar 9012 3456 7892 was submitted for the subsidy application.", "entities": [{"type": "AADHAAR", "start": 8, "end": 22, "text": "9012 3456 7892"}]}
+{"id": "0070", "category": "aadhaar", "text": "UID 246813579026 is registered against the ration card.", "entities": [{"type": "AADHAAR", "start": 4, "end": 16, "text": "246813579026"}]}
+{"id": "0071", "category": "aadhaar", "text": "The applicant's Aadhaar number is 3579 2468 0130.", "entities": [{"type": "AADHAAR", "start": 34, "end": 48, "text": "3579 2468 0130"}]}
+{"id": "0072", "category": "aadhaar", "text": "Aadhaar verification failed for 468135790248 due to a mismatch.", "entities": [{"type": "AADHAAR", "start": 32, "end": 44, "text": "468135790248"}]}
+{"id": "0073", "category": "aadhaar", "text": "Please update the Aadhaar 5792 4680 1357 linked to this account.", "entities": [{"type": "AADHAAR", "start": 26, "end": 40, "text": "5792 4680 1357"}]}
+{"id": "0074", "category": "aadhaar", "text": "Aadhaar number 680357912468 was used for e-KYC.", "entities": [{"type": "AADHAAR", "start": 15, "end": 27, "text": "680357912468"}]}
+{"id": "0075", "category": "aadhaar", "text": "The beneficiary's Aadhaar 7914 6802 3578 is pending seeding.", "entities": [{"type": "AADHAAR", "start": 26, "end": 40, "text": "7914 6802 3578"}]}
+{"id": "0076", "category": "aadhaar", "text": "Aadhaar 8025 7913 4680 appears twice in the deduplication report.", "entities": [{"type": "AADHAAR", "start": 8, "end": 22, "text": "8025 7913 4680"}]}
+{"id": "0077", "category": "aadhaar", "text": "UID number 913680245793 was flagged for manual review.", "entities": [{"type": "AADHAAR", "start": 11, "end": 23, "text": "913680245793"}]}
+{"id": "0078", "category": "location", "text": "The regional office relocated to Bangalore last month.", "entities": [{"type": "LOCATION", "start": 33, "end": 42, "text": "Bangalore"}]}
+{"id": "0079", "category": "location", "text": "She is currently based out of Hyderabad.", "entities": [{"type": "LOCATION", "start": 30, "end": 39, "text": "Hyderabad"}]}
+{"id": "0080", "category": "location", "text": "The shipment was routed through Chennai port.", "entities": [{"type": "LOCATION", "start": 32, "end": 39, "text": "Chennai"}]}
+{"id": "0081", "category": "location", "text": "His transfer to Pune was approved by HR.", "entities": [{"type": "LOCATION", "start": 16, "end": 20, "text": "Pune"}]}
+{"id": "0082", "category": "location", "text": "The new warehouse opened in Ahmedabad.", "entities": [{"type": "LOCATION", "start": 28, "end": 37, "text": "Ahmedabad"}]}
+{"id": "0083", "category": "location", "text": "Field operations are managed from Kolkata.", "entities": [{"type": "LOCATION", "start": 34, "end": 41, "text": "Kolkata"}]}
+{"id": "0084", "category": "location", "text": "The client's headquarters are in Gurgaon.", "entities": [{"type": "LOCATION", "start": 33, "end": 40, "text": "Gurgaon"}]}
+{"id": "0085", "category": "location", "text": "The audit team travelled to Kochi for the site visit.", "entities": [{"type": "LOCATION", "start": 28, "end": 33, "text": "Kochi"}]}
+{"id": "0086", "category": "mixed", "text": "Contact Priya Sharma at priya.sharma@examplebank.com or +91 98765 43210 regarding the KYC update.", "entities": [{"type": "PERSON", "start": 8, "end": 20, "text": "Priya Sharma"}, {"type": "EMAIL", "start": 24, "end": 52, "text": "priya.sharma@examplebank.com"}, {"type": "PHONE", "start": 56, "end": 71, "text": "+91 98765 43210"}]}
+{"id": "0087", "category": "mixed", "text": "Rahul Verma (PAN AXZPK4521F) relocated to Bangalore last week.", "entities": [{"type": "PERSON", "start": 0, "end": 11, "text": "Rahul Verma"}, {"type": "PAN", "start": 17, "end": 27, "text": "AXZPK4521F"}, {"type": "LOCATION", "start": 42, "end": 51, "text": "Bangalore"}]}
+{"id": "0088", "category": "mixed", "text": "Ayesha Siddiqui's Aadhaar 2345 6789 0124 and phone 9988776655 were verified together.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Ayesha Siddiqui"}, {"type": "AADHAAR", "start": 26, "end": 40, "text": "2345 6789 0124"}, {"type": "PHONE", "start": 51, "end": 61, "text": "9988776655"}]}
+{"id": "0089", "category": "mixed", "text": "Please forward the invoice to billing@finance.acmeindia.net and cc rahul.verma@examplecorp.com.", "entities": [{"type": "EMAIL", "start": 30, "end": 59, "text": "billing@finance.acmeindia.net"}, {"type": "EMAIL", "start": 67, "end": 94, "text": "rahul.verma@examplecorp.com"}]}
+{"id": "0090", "category": "mixed", "text": "The government PAN ASDGM1234T is linked to an office in Chennai.", "entities": [{"type": "PAN", "start": 19, "end": 29, "text": "ASDGM1234T"}, {"type": "LOCATION", "start": 56, "end": 63, "text": "Chennai"}]}
+{"id": "0091", "category": "mixed", "text": "Karthik Iyer, reachable at +91-7012345678, confirmed the Hyderabad site visit.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Karthik Iyer"}, {"type": "PHONE", "start": 27, "end": 41, "text": "+91-7012345678"}, {"type": "LOCATION", "start": 57, "end": 66, "text": "Hyderabad"}]}
+{"id": "0092", "category": "mixed", "text": "Maria Fernandes updated her Aadhaar 345678901238 after moving to Kochi.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Maria Fernandes"}, {"type": "AADHAAR", "start": 36, "end": 48, "text": "345678901238"}, {"type": "LOCATION", "start": 65, "end": 70, "text": "Kochi"}]}
+{"id": "0093", "category": "mixed", "text": "Gurpreet Singh's PAN UIOBK5678R and phone 9123456780 are both on file.", "entities": [{"type": "PERSON", "start": 0, "end": 14, "text": "Gurpreet Singh"}, {"type": "PAN", "start": 21, "end": 31, "text": "UIOBK5678R"}, {"type": "PHONE", "start": 42, "end": 52, "text": "9123456780"}]}
+{"id": "0094", "category": "mixed", "text": "Send the offer letter to happy.singh@examplecorp.in; his Aadhaar is 456789012341.", "entities": [{"type": "EMAIL", "start": 25, "end": 51, "text": "happy.singh@examplecorp.in"}, {"type": "AADHAAR", "start": 68, "end": 80, "text": "456789012341"}]}
+{"id": "0095", "category": "mixed", "text": "Sneha Mishra (sneha.mishra@corporate-group.org) is based in Gurgaon.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Sneha Mishra"}, {"type": "EMAIL", "start": 14, "end": 46, "text": "sneha.mishra@corporate-group.org"}, {"type": "LOCATION", "start": 60, "end": 67, "text": "Gurgaon"}]}
+{"id": "0096", "category": "mixed", "text": "The vendor contract lists Arjun Reddy as the signatory, PAN QWEFR9012L, based in Pune.", "entities": [{"type": "PERSON", "start": 26, "end": 37, "text": "Arjun Reddy"}, {"type": "PAN", "start": 60, "end": 70, "text": "QWEFR9012L"}, {"type": "LOCATION", "start": 81, "end": 85, "text": "Pune"}]}
+{"id": "0097", "category": "mixed", "text": "Two numbers on file for Thomas Kurian: +91 90123 45678 and 08012345671.", "entities": [{"type": "PERSON", "start": 24, "end": 37, "text": "Thomas Kurian"}, {"type": "PHONE", "start": 39, "end": 54, "text": "+91 90123 45678"}, {"type": "PHONE", "start": 59, "end": 70, "text": "08012345671"}]}
+{"id": "0098", "category": "mixed", "text": "Jaspreet Bhatia's Aadhaar 567890123458 was linked to phone 9345671234 and email jaspreet.b@examplemail.com.", "entities": [{"type": "PERSON", "start": 0, "end": 15, "text": "Jaspreet Bhatia"}, {"type": "AADHAAR", "start": 26, "end": 38, "text": "567890123458"}, {"type": "PHONE", "start": 59, "end": 69, "text": "9345671234"}, {"type": "EMAIL", "start": 80, "end": 106, "text": "jaspreet.b@examplemail.com"}]}
+{"id": "0099", "category": "mixed", "text": "Divya Chandrasekaran, PAN MZXTB6789N, relocated from Chennai to Ahmedabad.", "entities": [{"type": "PERSON", "start": 0, "end": 20, "text": "Divya Chandrasekaran"}, {"type": "PAN", "start": 26, "end": 36, "text": "MZXTB6789N"}, {"type": "LOCATION", "start": 53, "end": 60, "text": "Chennai"}, {"type": "LOCATION", "start": 64, "end": 73, "text": "Ahmedabad"}]}
+{"id": "0100", "category": "mixed", "text": "Escalate to legal.team@corporate-group.org; the applicant's PAN is RTYAL2345P.", "entities": [{"type": "EMAIL", "start": 12, "end": 42, "text": "legal.team@corporate-group.org"}, {"type": "PAN", "start": 67, "end": 77, "text": "RTYAL2345P"}]}
+{"id": "0101", "category": "mixed", "text": "Aamir Hussain confirmed his new number +91-8890012345 after moving to Kolkata.", "entities": [{"type": "PERSON", "start": 0, "end": 13, "text": "Aamir Hussain"}, {"type": "PHONE", "start": 39, "end": 53, "text": "+91-8890012345"}, {"type": "LOCATION", "start": 70, "end": 77, "text": "Kolkata"}]}
+{"id": "0102", "category": "negative_no_pii", "text": "The quarterly board meeting has been rescheduled to next Thursday.", "entities": []}
+{"id": "0103", "category": "negative_no_pii", "text": "All employees must complete the annual compliance refresher by year end.", "entities": []}
+{"id": "0104", "category": "negative_no_pii", "text": "The server migration is expected to take approximately six hours.", "entities": []}
+{"id": "0105", "category": "negative_no_pii", "text": "Please review the attached policy document before the next sync.", "entities": []}
+{"id": "0106", "category": "negative_no_pii", "text": "The marketing campaign exceeded its engagement targets this quarter.", "entities": []}
+{"id": "0107", "category": "negative_no_pii", "text": "Office hours during the festive season will be reduced by two hours daily.", "entities": []}
+{"id": "0108", "category": "negative_no_pii", "text": "The new expense reimbursement policy takes effect next month.", "entities": []}
+{"id": "0109", "category": "negative_no_pii", "text": "Inventory levels are being reconciled ahead of the year-end audit.", "entities": []}
+{"id": "0110", "category": "negative_no_pii", "text": "The product roadmap was revised after stakeholder feedback.", "entities": []}
+{"id": "0111", "category": "negative_no_pii", "text": "Training sessions on the updated software will run throughout the week.", "entities": []}
+{"id": "0112", "category": "negative_no_pii", "text": "The vendor renewal process now requires additional documentation.", "entities": []}
+{"id": "0113", "category": "negative_no_pii", "text": "Budget approvals for Q3 are pending finance committee review.", "entities": []}
+{"id": "0114", "category": "negative_no_pii", "text": "The helpdesk reported a spike in password reset requests.", "entities": []}
+{"id": "0115", "category": "negative_no_pii", "text": "System maintenance is scheduled for the coming weekend.", "entities": []}
+{"id": "0116", "category": "near_miss_no_gold", "text": "Order #487213908475 was dispatched via the regional hub.", "entities": []}
+{"id": "0117", "category": "near_miss_no_gold", "text": "Tracking ID 998877665544 shows the package in transit.", "entities": []}
+{"id": "0118", "category": "near_miss_no_gold", "text": "Invoice reference 223344556677 was auto-generated by the billing system.", "entities": []}
+{"id": "0119", "category": "near_miss_no_gold", "text": "The document was timestamped 202501151234 for audit purposes.", "entities": []}
+{"id": "0120", "category": "near_miss_no_gold", "text": "The batch process ID 334455667788 failed to complete.", "entities": []}
+{"id": "0121", "category": "near_miss_no_gold", "text": "Serial number 667788990011 was misread by the scanner.", "entities": []}
+{"id": "0122", "category": "near_miss_no_gold", "text": "Reference number 678902234560 does not match any customer record.", "entities": []}
+{"id": "0123", "category": "near_miss_no_gold", "text": "The corrupted record 789013345674 could not be validated during the audit.", "entities": []}
+{"id": "0124", "category": "near_miss_no_gold", "text": "Reference code AAAZX5678Q was flagged as invalid input.", "entities": []}
+{"id": "0125", "category": "near_miss_no_gold", "text": "The internal code BBBIY1234M appeared in the error log.", "entities": []}
+{"id": "0126", "category": "near_miss_no_gold", "text": "Call the vendor helpline at 5876543210 for support.", "entities": []}
+{"id": "0127", "category": "near_miss_no_gold", "text": "The reference ID 1234567890 was assigned automatically.", "entities": []}
+{"id": "0128", "category": "org_distractor_no_pii", "text": "Meridian Analytics announced a new partnership with Cedar Systems.", "entities": []}
+{"id": "0129", "category": "org_distractor_no_pii", "text": "Northbridge Consulting was awarded the compliance advisory contract.", "entities": []}
+{"id": "0130", "category": "org_distractor_no_pii", "text": "Falcon Logistics upgraded its warehouse management software.", "entities": []}
+{"id": "0131", "category": "org_distractor_no_pii", "text": "Everline Technologies migrated its infrastructure to the cloud.", "entities": []}
+{"id": "0132", "category": "org_distractor_no_pii", "text": "Sundial Capital reported strong quarterly earnings.", "entities": []}
+{"id": "0133", "category": "org_distractor_no_pii", "text": "Ashgrove Manufacturing completed its ISO certification renewal.", "entities": []}
