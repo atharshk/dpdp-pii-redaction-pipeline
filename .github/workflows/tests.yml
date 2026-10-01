@@ -1,0 +1,19 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # The exact spaCy model version (en_core_web_lg-3.8.0) is pinned as a
+      # direct wheel URL in requirements.txt, not fetched via a separate
+      # `spacy download` step — that command grabs whatever's latest, which
+      # would silently stop matching the model EVAL_RESULTS.md was measured
+      # against.
+      - run: pip install -e . -r requirements.txt
+      - run: pytest
