@@ -17,6 +17,12 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# Without this, `tests.fixtures`/`tests.data.cases` imports only resolve
+# when pytest is invoked as `python -m pytest` (which puts cwd on
+# sys.path) and silently break under a bare `pytest` invocation — exactly
+# what happened in CI. pythonpath pins the project root onto sys.path for
+# the test session regardless of invocation style.
+pythonpath = ["."]
 markers = [
     "ner: requires the spaCy/Presidio NER stack and model download",
 ]
