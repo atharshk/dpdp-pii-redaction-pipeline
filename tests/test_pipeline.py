@@ -52,3 +52,15 @@ def test_audit_log_path_persists_records_for_this_document(tmp_path):
     assert len(entries) == len(records) == 1
     assert entries[0]["entity_type"] == "EMAIL"
     assert entries[0]["document_id"] == "doc-1"
+
+
+def test_stage1_normalisation_makes_fullwidth_aadhaar_detectable():
+    # A full-width-digit Aadhaar number is invisible to the regex before
+    # Stage 1 runs, because the regex uses explicit ASCII character classes
+    # ([2-9], not \d) specifically so it doesn't accept non-ASCII digit
+    # look-alikes. This is the concrete case Stage 1 exists for.
+    fullwidth_aadhaar = "２３４５６７８９０１２４"  # NFKC -> 234567890124 (valid Verhoeff)
+    text = f"Aadhaar: {fullwidth_aadhaar}"
+    redacted, records = redact_document(text)
+    assert "[AADHAAR_REDACTED]" in redacted
+    assert any(r.entity_type == "AADHAAR" for r in records)

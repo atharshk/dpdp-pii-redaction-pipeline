@@ -1,13 +1,12 @@
-"""Session 4: runs the pipeline's detection+resolution (Stage 2+3) against
-the 134-case labeled test set and reports real precision/recall/F1 —
-per entity type, never one aggregate number; both the strict (primary) and
-relaxed (diagnostic) matching rule; a PERSON recall breakdown by naming
-convention; and the concrete failure cases behind every number.
+"""Runs the pipeline's Stage 1 (normalisation) + Stage 2 (detection) +
+Stage 3 (resolution) against the 134-case labeled test set and reports
+real precision/recall/F1 — per entity type, never one aggregate number;
+both the strict (primary) and relaxed (diagnostic) matching rule; a
+PERSON recall breakdown by naming convention; and the concrete failure
+cases behind every number.
 
-This is the actual measurement referenced everywhere else in this repo as
-"still Session 4, not measured yet." Running this script is what turns
-those into real numbers — nothing in EVAL_RESULTS.md is invented or
-estimated; it is this script's printed output, copied in.
+Nothing in EVAL_RESULTS.md is invented or estimated — it is this script's
+printed output, copied in.
 """
 
 import json
@@ -17,6 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from pii_redaction.evaluation import EvalResult, evaluate_dataset, f1, precision, recall  # noqa: E402
+from pii_redaction.normalise import normalise  # noqa: E402
 from pii_redaction.pipeline import default_detectors  # noqa: E402
 from pii_redaction.resolution import resolve  # noqa: E402
 
@@ -73,7 +73,18 @@ def main() -> None:
     detectors = default_detectors()
 
     def predict(text: str):
-        raw = [e for d in detectors for e in d.detect(text)]
+        # Gold offsets in the JSONL are computed against the original,
+        # unnormalised sentence text. normalise() must be a no-op on every
+        # case in this dataset (plain ASCII, no irregular whitespace) for
+        # those offsets to still line up against normalised_text below —
+        # asserted, not assumed, since a silent mismatch here would corrupt
+        # every number in this report.
+        normalised_text = normalise(text)
+        assert normalised_text == text, (
+            f"normalise() changed test-set text ({text!r} -> {normalised_text!r}); "
+            "gold offsets would no longer line up — fix the test case, don't skip this check"
+        )
+        raw = [e for d in detectors for e in d.detect(normalised_text)]
         return resolve(raw)
 
     strict = evaluate_dataset(records, predict, "strict")

@@ -9,6 +9,7 @@ from pii_redaction.detectors import (
     PresidioNERDetector,
 )
 from pii_redaction.detectors.base import Detector
+from pii_redaction.normalise import normalise
 from pii_redaction.resolution import resolve
 from pii_redaction.transform import RedactionRecord, redact
 
@@ -26,15 +27,26 @@ def redact_document(
     audit_log_path: str | Path | None = None,
     document_id: str | None = None,
 ) -> tuple[str, list[RedactionRecord]]:
-    """Run the full Stage 2 (detection) -> Stage 3 (resolution) -> Stage 4
-    (transformation) pipeline on a single document.
+    """Run the full Stage 1 (normalisation) -> Stage 2 (detection) -> Stage 3
+    (resolution) -> Stage 4 (transformation) pipeline on a single document.
+
+    IMPORTANT: `text` is normalised (Unicode NFKC, whitespace collapsing —
+    see normalise.py) before anything else runs. The returned redacted text,
+    and every offset in the returned RedactionRecords (and anything written
+    to audit_log_path), are offsets into the *normalised* text, not into
+    the exact bytes the caller passed in. For plain, already-clean ASCII
+    input the two are usually identical; they differ when the input has
+    full-width characters, zero-width characters, or irregular whitespace.
+    An auditor correlating a logged offset against a stored source document
+    needs to normalise that document the same way first, or the offsets
+    will not line up.
 
     If `audit_log_path` is given, the resulting RedactionRecords are also
     appended to that path as JSONL (see audit_log.write_audit_log) —
     Stage 5's persisted audit trail. Without it, records are only returned
-    in-memory, as before. Stage 1 (normalisation) is not implemented yet —
-    see README Known Limitations.
+    in-memory.
     """
+    text = normalise(text)
     detectors = detectors if detectors is not None else default_detectors()
     raw_entities = [entity for detector in detectors for entity in detector.detect(text)]
     resolved = resolve(raw_entities)

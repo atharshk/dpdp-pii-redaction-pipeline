@@ -1,4 +1,5 @@
 from pii_redaction.detectors.aadhaar import AadhaarDetector, AadhaarNaiveDetector
+from pii_redaction.normalise import normalise
 from tests.fixtures import synthetic_aadhaar
 
 naive = AadhaarNaiveDetector()
@@ -64,3 +65,19 @@ def test_precision_delta_on_mixed_document():
 
     assert len(checked_hits) == 1
     assert checked_hits[0].text == VALID_AADHAAR_1
+
+
+def test_fullwidth_digits_are_invisible_before_normalisation_and_detected_after():
+    # The regex uses explicit ASCII [2-9], not \d, specifically so it
+    # doesn't match non-ASCII digit look-alikes — which means a full-width
+    # Aadhaar number needs Stage 1 normalisation to become detectable at
+    # all. This is the exact mechanism Stage 1 exists for (see
+    # normalise.py and pipeline.py).
+    fullwidth = "".join(chr(ord(c) + 0xFEE0) if c.isdigit() else c for c in VALID_AADHAAR_1)
+    text_before = f"Aadhaar: {fullwidth}"
+
+    assert checked.detect(text_before) == []
+
+    text_after = normalise(text_before)
+    assert text_after == f"Aadhaar: {VALID_AADHAAR_1}"
+    assert [s.text for s in checked.detect(text_after)] == [VALID_AADHAAR_1]
