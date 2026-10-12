@@ -31,7 +31,7 @@ boundary slop.
 | EMAIL | 1.000 | 1.000 | 1.000 |
 | LOCATION | 1.000 | 1.000 | 1.000 |
 | PAN | 1.000 | 1.000 | 1.000 |
-| PERSON | 0.902 | 0.885 | 0.893 |
+| PERSON | 0.961 | 0.942 | 0.951 |
 | PHONE | 1.000 | 1.000 | 1.000 |
 
 **Why five of six rows are a perfect 1.000 — and why that proves less than
@@ -46,7 +46,7 @@ separately, in unit tests covering invalid PAN holder codes, corrupted
 Aadhaar checksums, and non-mobile phone prefixes — this eval tests
 integration, not detector correctness in isolation. **PERSON is the
 genuinely informative row**, because NER is the one probabilistic
-component: 0.902 precision, 0.885 recall.
+component: 0.961 precision, 0.942 recall.
 
 **The hypothesis going in, stated before measuring, did not hold up:**
 spaCy's training is Western-centric, so the expectation was a recall gap on
@@ -70,11 +70,50 @@ useful finding than "Indian names underperform" would have been — it says
 exactly what to test for in production text, instead of gesturing at an
 ethnicity-shaped gap this data doesn't actually show.
 
-Under **relaxed** matching, PERSON recall rises to 0.981 with zero false
-positives — meaning most of the strict-matching gap is boundary artifacts
-(a detected span that includes a trailing possessive `'s`, or drops a
-common-word first name), not total misses. Exactly **one case fails under
-any matching rule**:
+Under **relaxed** matching, PERSON recall is 0.981 with zero false
+positives, against 0.942 strict. What remains of that gap is one real miss,
+not boundary slop — which was not true of the first measurement.
+
+#### A defect this evaluation found, and what changed
+
+The first run scored PERSON at **0.902 precision / 0.885 recall / 0.893
+F1**, with 11 strict failures. Six of those eleven were three sentences
+counted twice. spaCy's entity spans include the possessive clitic, so
+`"Ayesha Siddiqui's Aadhaar ..."` produced the span `Ayesha Siddiqui's` —
+scoring as a false positive *and* a false negative under strict matching,
+while passing under relaxed. The name was found; the end offset was wrong.
+
+That is worth fixing for a reason beyond the score. Redacting the over-long
+span produces `"PERSON_A Aadhaar ... were verified together."`: the
+possessive marker is consumed along with the name, and the sentence loses
+its grammatical relation, reading as a list rather than a statement about
+one person's Aadhaar. Trimming the clitic produces `"PERSON_A's Aadhaar
+..."`, which preserves it. The fix lives in
+[`spans.py`](src/pii_redaction/spans.py) and is deliberately narrow: the
+trimmed characters must begin with an apostrophe, a span is never reduced
+to nothing, and names that genuinely end in "s" ("Travis", "Paris") are
+untouched. It is a rule about English possessive morphology, not a lookup
+against the test set.
+
+Re-measured after the fix: **0.961 / 0.942 / 0.951**, with strict failures
+down from 11 to 5. Two things did *not* move, and both say more than the
+headline does:
+
+- **Relaxed matching is unchanged** at 1.000 / 0.981. It should be — those
+  cases already passed under relaxed. Strict converging toward relaxed
+  while relaxed holds still is the signature of closed boundary slop, not
+  of improved detection. Had relaxed moved too, the fix would have been
+  changing what gets detected, which is not what it claims to do.
+- **`person_common_word_name` recall is unchanged at 0.625.** The one
+  genuine weakness in this pipeline is untouched, because the fix has
+  nothing to do with it. All five remaining strict failures are
+  common-word-name cases.
+
+The pre-fix numbers are kept here on purpose. The evaluation's job was to
+find this, and deleting the record of what it found would defeat the point
+of running it.
+
+Exactly **one case fails under any matching rule**:
 
 > `PresidioNERDetector().detect("Sunny Malhotra confirmed the meeting for Tuesday.")` → `[]`
 
@@ -87,14 +126,12 @@ it. The actual, narrower, tested finding: this is a model-specific blind
 spot for the exact bigram "Sunny Malhotra," not a generalizable "common
 first names break NER" rule.
 
-**Two concrete failure cases, reproducible in seconds:**
-1. `"Sunny Malhotra confirmed the meeting for Tuesday."` → zero entities
-   detected. A total miss, isolated down to the exact two-word combination
-   by the ablation above — not explained by either word alone.
-2. `"Ayesha Siddiqui's Aadhaar ... were verified together."` → detected
-   span is `Ayesha Siddiqui's`, including the possessive. A systematic
-   tokenization artifact, reproducible on every possessive construction in
-   the test set (3/3), not a one-off.
+**The remaining failure, reproducible in seconds:**
+`"Sunny Malhotra confirmed the meeting for Tuesday."` → zero entities
+detected. A total miss, isolated down to the exact two-word combination by
+the ablation above — not explained by either word alone, and not fixable by
+a span-boundary rule. This one is a genuine model limitation and is left
+standing rather than worked around.
 
 ### Retrieval quality
 
@@ -339,8 +376,9 @@ Named directly rather than left for someone else to raise:
   review. Mitigated only by that ordering, and by the fact that both the
   build-time sanity check and the real evaluation surfaced real,
   unflattering failures rather than a suspiciously clean pass — a rigged
-  test set would not have produced an 0.885 PERSON recall and a
-  fully-missed name. What this does *not* rule out: unconscious bias in
+  test set would not have exposed a systematic span-boundary defect in the
+  detector *and* a fully-missed name, and would not still be reporting
+  0.625 recall on one naming category after the fixable half was fixed. What this does *not* rule out: unconscious bias in
   which sentences got written in the first place (e.g. avoiding genuinely
   hard cases without realizing it). An independent, third-party-labeled
   corpus is the real fix, and is out of scope for a solo portfolio project.
