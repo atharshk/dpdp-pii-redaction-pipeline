@@ -12,6 +12,18 @@ dependencies = [
     "presidio-analyzer==2.2.364",
 ]
 
+# Only `scripts/evaluate_retrieval.py` needs this, and it drags in torch
+# (multi-GB). Keeping it out of [project.dependencies] means `pip install -e .`
+# stays light for everyone who only uses the redaction pipeline. It is declared
+# here rather than left undeclared: RETRIEVAL_RESULTS.md is a published results
+# file, and a published result whose generator cannot be installed from the
+# repository's own metadata is not reproducible.
+#   pip install -e ".[retrieval]"
+[project.optional-dependencies]
+retrieval = [
+    "sentence-transformers==6.1.0",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
