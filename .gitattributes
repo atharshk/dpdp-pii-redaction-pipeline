@@ -1,0 +1,10 @@
+# Normalise line endings in the repository to LF regardless of the platform
+# a contributor checks out on. Without this, a Windows clone reports every
+# file as modified (CRLF working tree vs LF blobs) and a commit would rewrite
+# every line of every file.
+* text=auto
+
+# Binary: never normalise, never diff as text.
+*.xlsx binary
+*.png binary
+*.jpg binary
