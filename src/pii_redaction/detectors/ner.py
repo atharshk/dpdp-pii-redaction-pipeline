@@ -3,6 +3,7 @@ from functools import lru_cache
 from presidio_analyzer import AnalyzerEngine
 
 from pii_redaction.entity import EntityType, PIIEntity
+from pii_redaction.spans import trim_possessive
 
 # Structured PII (email, phone, PAN, Aadhaar) is already covered by the
 # regex detectors with format/checksum precision Presidio's generic
@@ -16,7 +17,7 @@ from pii_redaction.entity import EntityType, PIIEntity
 # strategy (README Stage 4) retains organisations rather than redacting
 # them; detecting them isn't safety-critical the way PERSON detection is.
 # Presidio's spaCy-backed recognizer also emits NRP and DATE_TIME; those
-# are out of scope for this session too (see README Known Limitations).
+# are out of scope here too (see README Known Limitations).
 _SUPPORTED_ENTITIES = ("PERSON", "LOCATION")
 
 
@@ -41,14 +42,17 @@ class PresidioNERDetector:
         results = self._engine.analyze(
             text=text, language="en", entities=list(_SUPPORTED_ENTITIES)
         )
-        return [
-            PIIEntity(
-                entity_type=EntityType(r.entity_type),
-                start=r.start,
-                end=r.end,
-                text=text[r.start : r.end],
-                confidence=r.score,
-                detector=self.name,
+        entities = []
+        for r in results:
+            start, end = trim_possessive(text, r.start, r.end)
+            entities.append(
+                PIIEntity(
+                    entity_type=EntityType(r.entity_type),
+                    start=start,
+                    end=end,
+                    text=text[start:end],
+                    confidence=r.score,
+                    detector=self.name,
+                )
             )
-            for r in results
-        ]
+        return entities
