@@ -1,9 +1,9 @@
-"""Session 2 exploratory check (NOT a measured evaluation): does Presidio's
+"""Exploratory spot-check (NOT a measured evaluation): does Presidio's
 default spaCy NER (en_core_web_lg, trained predominantly on Western-centric
 corpora) reliably catch Indian names across regions and communities?
 
 This is an anecdotal spot-check on a handful of hand-picked sentences, run
-to form an honest expectation before Session 4 builds the real labeled test
+to form an honest expectation before building the real labeled test
 set and measures actual recall. Do not quote these numbers as a metric —
 sample size is far too small and the sentences were written, not sampled.
 """
@@ -48,7 +48,7 @@ def main() -> None:
 
     total = hits + misses
     print(f"\n{hits}/{total} matched exactly on this hand-picked sample.")
-    print("This is NOT a recall measurement - see Session 4 for the real eval.")
+    print("This is NOT a recall measurement - see EVAL_RESULTS.md for the real eval.")
 
 
 if __name__ == "__main__":

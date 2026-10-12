@@ -39,7 +39,7 @@ def test_exact_match_is_a_true_positive_under_strict_and_relaxed():
 
 def test_boundary_mismatch_is_fn_plus_fp_under_strict_but_tp_under_relaxed():
     # Predicted span includes a trailing character gold doesn't — exactly
-    # the possessive-'s pattern found in Session 3.
+    # the possessive-'s pattern found in the labeled set.
     records = [{
         "id": "0", "category": "person_test", "text": "Ayesha Siddiqui's",
         "entities": [_gold("PERSON", 0, 15, "Ayesha Siddiqui")],

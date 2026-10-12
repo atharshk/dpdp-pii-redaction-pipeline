@@ -1,4 +1,4 @@
-"""Session 5: persisting the Stage 4 audit trail.
+"""Stage 5: persisting the Stage 4 audit trail.
 
 Real audit logs are append-only — a log an application can silently
 overwrite isn't evidence of anything. write_audit_log() opens in append

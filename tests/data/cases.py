@@ -1,4 +1,4 @@
-"""Session 3 labeled test set — raw case definitions.
+"""Labeled test set — raw case definitions.
 
 Every entity value here is synthetic. PAN and Aadhaar numbers are
 constructed to match the real format (Aadhaar with a genuine Verhoeff

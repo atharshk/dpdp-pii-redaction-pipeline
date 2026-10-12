@@ -1,4 +1,4 @@
-"""Session 4: evaluation of detection+resolution (Stage 2+3) against a
+"""Evaluation of detection+resolution (Stage 2+3) against a
 labeled test set.
 
 Matching rule — decided and documented here, before any number is computed,
@@ -15,7 +15,7 @@ meaningless precision/recall scores get produced:
   RELAXED (diagnostic companion, not the headline number): a predicted span
     counts as correct if its entity type matches and it overlaps the gold
     span at all. Reported alongside strict specifically to characterize
-    *why* strict recall is lower than it might look — e.g. Session 3's
+    *why* strict recall is lower than it might look — e.g. the test set's
     build-time sanity check already found predicted spans that include a
     trailing possessive "'s" the gold span excludes. Relaxed is not used as
     the reported number because it would silently give full credit for

@@ -9,11 +9,11 @@ instead of silently writing a bad label.
 
 Also runs a build-time sanity check: each gold entity is checked against
 its own single-purpose detector (regex detector for structured types, the
-NER detector for PERSON/LOCATION). This is NOT the Session 4 evaluation —
+NER detector for PERSON/LOCATION). This is NOT the reported evaluation —
 no combined-pipeline precision/recall/F1 is computed here, no matching-rule
 decision is exercised — it exists only to catch authoring mistakes in this
 test set (a malformed PAN, a phone format the regex doesn't cover) before
-they become confusing results in Session 4.
+they become confusing results at evaluation time.
 """
 
 import json

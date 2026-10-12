@@ -1,4 +1,4 @@
-"""Sessions 1-5 demo: run the structured-PII regex detectors plus the
+"""End-to-end demo: run the structured-PII regex detectors plus the
 Presidio NER detector on a sample document, including the Aadhaar
 precision comparison and the full detect -> resolve -> redact -> persisted
 audit log pipeline."""
