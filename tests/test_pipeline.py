@@ -1,6 +1,10 @@
 import pytest
 
-from pii_redaction.pipeline import redact_document
+# See test_ner.py: a module-level mark cannot prevent these imports from
+# executing, so the NER stack has to be guarded explicitly.
+pytest.importorskip("presidio_analyzer", reason="NER stack not installed")
+
+from pii_redaction.pipeline import redact_document  # noqa: E402
 
 pytestmark = pytest.mark.ner  # loads the Presidio/spaCy NER stack
 

@@ -1,6 +1,12 @@
 import pytest
 
-from pii_redaction.detectors.ner import PresidioNERDetector
+# A module-level `pytestmark` is applied *after* pytest imports the module, so
+# `-m "not ner"` alone cannot stop these imports from running. Without this
+# guard the module raises ModuleNotFoundError at collection time when the NER
+# stack is not installed, turning an intended skip into a hard error.
+pytest.importorskip("presidio_analyzer", reason="NER stack not installed")
+
+from pii_redaction.detectors.ner import PresidioNERDetector  # noqa: E402
 
 pytestmark = pytest.mark.ner
 

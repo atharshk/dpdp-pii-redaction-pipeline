@@ -25,7 +25,11 @@ specific claim than the original one-line guess.
 
 import pytest
 
-from pii_redaction.detectors.ner import PresidioNERDetector
+# See test_ner.py: a module-level mark cannot prevent these imports from
+# executing, so the NER stack has to be guarded explicitly.
+pytest.importorskip("presidio_analyzer", reason="NER stack not installed")
+
+from pii_redaction.detectors.ner import PresidioNERDetector  # noqa: E402
 
 pytestmark = pytest.mark.ner
 
